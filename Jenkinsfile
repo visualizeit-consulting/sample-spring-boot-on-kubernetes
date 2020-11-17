@@ -18,7 +18,7 @@ pipeline {
 			steps {
 				sh 'ls -la'
 				sh 'mvn -version'
-				sh 'mvn clean compile'
+				sh 'mvn clean compile -X'
 			}
 		}
 		stage('Test') {
