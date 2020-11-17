@@ -43,7 +43,7 @@ pipeline {
 			steps {
 				script {
 					env.PIPELINE_NAMESPACE = "test"
-					kubernetesDeploy kubeconfigId: 'docker-desktop', configs: 'k8s/deployment-template.yaml'
+					kubernetesDeploy kubeconfigId: 'k8s', configs: 'k8s/deployment-template.yaml'
 				}
 			}
 		}
@@ -51,7 +51,7 @@ pipeline {
 			steps {
 				script {
 					env.PIPELINE_NAMESPACE = "prod"
-					kubernetesDeploy kubeconfigId: 'docker-desktop', configs: 'k8s/deployment-template.yaml'
+					kubernetesDeploy kubeconfigId: 'k8s', configs: 'k8s/deployment-template.yaml'
 				}
 			}
 		}
