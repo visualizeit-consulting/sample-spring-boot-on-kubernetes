@@ -34,7 +34,7 @@ pipeline {
 				label "maven"
 			}
 			steps {
-				sh 'mvn initialize sonar:sonar -Dsonar.host.url=sonarqube-sonarqube.svc.sonarqube.cluster.local:9000'
+				sh 'mvn initialize sonar:sonar -Dsonar.host.url=http://sonarqube-sonarqube.svc.sonarqube.cluster.local:9000'
 			}
 		}
 		stage('Image') {
