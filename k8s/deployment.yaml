@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: sample-spring-boot-on-kubernetes
-        image: piomin/sample-spring-boot-on-kubernetes
+        image: visualizeitc2/sample-spring-boot-on-kubernetes
         ports:
         - containerPort: 8080
         env:

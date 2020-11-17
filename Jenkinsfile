@@ -6,7 +6,7 @@ pipeline {
 		stage('Checkout') {
 			steps {
 				script {
-					git url: 'https://github.com/piomin/sample-spring-boot-on-kubernetes.git', credentialsId: 'github_credentials'
+					git url: 'https://github.com/visualizeit-consulting/sample-spring-boot-on-kubernetes.git', credentialsId: 'github_credentials'
 					sh 'ls -la'
 				}
 			}
@@ -34,7 +34,7 @@ pipeline {
 				label "maven"
 			}
 			steps {
-				sh 'mvn -P jib -Djib.to.auth.username=piomin -Djib.to.auth.password=Piot_123 compile jib:build'
+				sh 'mvn -P jib -Djib.to.auth.username=visualizeitc2 -Djib.to.auth.password=n7gyxXY3uMQv compile jib:build'
 			}
 		}
 		stage('Deploy on test') {
