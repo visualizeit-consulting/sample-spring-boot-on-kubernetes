@@ -29,6 +29,14 @@ pipeline {
 				sh 'mvn test'
 			}
 		}
+		stage('Sonar') {
+			agent {
+				label "maven"
+			}
+			steps {
+				sh 'mvn initialize sonar:sonar -Dsonar.host.url=sonarqube-sonarqube.svc.sonarqube.cluster.local:9000'
+			}
+		}
 		stage('Image') {
 			agent {
 				label "maven"
