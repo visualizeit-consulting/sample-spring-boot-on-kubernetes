@@ -87,7 +87,7 @@
 						<artifactId>jib-maven-plugin</artifactId>
 						<version>2.4.0</version>
 						<configuration>
-							<to>piomin/sample-spring-boot-on-kubernetes</to>
+							<to>visualizeitc2/sample-spring-boot-on-kubernetes</to>
 <!--							<allowInsecureRegistries>true</allowInsecureRegistries>-->
 <!--							<to>172.17.0.2:5000/root/sample-spring-boot-on-kubernetes</to>-->
 						</configuration>
