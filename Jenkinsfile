@@ -34,7 +34,9 @@ pipeline {
 				label "maven"
 			}
 			steps {
-				sh 'mvn -P jib -Djib.to.auth.username=visualizeitc2 -Djib.to.auth.password=n7gyxXY3uMQv compile jib:build'
+				withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUBUSER', passwordVariable: 'HUBPASS')]) {
+					sh 'mvn -P jib -Djib.to.auth.username=${HUBUSER} -Djib.to.auth.password=${HUBPASS} compile jib:build'
+				}
 			}
 		}
 		stage('Deploy on test') {
