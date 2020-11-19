@@ -3,6 +3,8 @@ package pl.piomin.samples.springboot.kubernetes.controller;
 import java.util.Optional;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.piomin.samples.springboot.kubernetes.domain.Gender;
 import pl.piomin.samples.springboot.kubernetes.domain.Person;
 import pl.piomin.samples.springboot.kubernetes.repository.PersonRepository;
@@ -25,6 +27,8 @@ public class PersonController {
 	private PersonRepository repository;
 	private PersonService service;
 
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+
 	PersonController(PersonRepository repository, PersonService service) {
 		this.repository = repository;
 		this.service = service;
@@ -37,6 +41,7 @@ public class PersonController {
 
 	@PostMapping("/random")
 	public Set<Person> add() {
+		log.info("Adding a Random Person");
 		Person p1 = new Person();
 		p1.setAge(1);
 		p1.setFirstName("X");
