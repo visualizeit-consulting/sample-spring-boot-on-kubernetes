@@ -48,6 +48,9 @@ pipeline {
 // 			}
 // 		}
 		stage('Deploy on test') {
+		    agent {
+		        label "maven"
+		    }
 			steps {
 			    withKubeConfig([credentialsId: 'k8s']) {
 			      sh 'sleep 60'
