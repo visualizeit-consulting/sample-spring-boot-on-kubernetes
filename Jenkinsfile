@@ -11,45 +11,46 @@ pipeline {
 				}
 			}
 		}
-		stage('Build') {
-			agent {
-				label "maven"
-			}
-			steps {
-				sh 'ls -la'
-				sh 'mvn -version'
-				sh 'mvn clean compile -X'
-			}
-		}
-		stage('Test') {
-			agent {
-				label "maven"
-			}
-			steps {
-				sh 'mvn test'
-			}
-		}
-		stage('Sonar') {
-			agent {
-				label "maven"
-			}
-			steps {
-				sh 'mvn initialize sonar:sonar -Dsonar.host.url=http://sonarqube-sonarqube.sonarqube.svc.cluster.local:9000'
-			}
-		}
-		stage('Image') {
-			agent {
-				label "maven"
-			}
-			steps {
-				withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUBUSER', passwordVariable: 'HUBPASS')]) {
-					sh 'mvn -P jib -Djib.to.auth.username=${HUBUSER} -Djib.to.auth.password=${HUBPASS} compile jib:build'
-				}
-			}
-		}
+// 		stage('Build') {
+// 			agent {
+// 				label "maven"
+// 			}
+// 			steps {
+// 				sh 'ls -la'
+// 				sh 'mvn -version'
+// 				sh 'mvn clean compile -X'
+// 			}
+// 		}
+// 		stage('Test') {
+// 			agent {
+// 				label "maven"
+// 			}
+// 			steps {
+// 				sh 'mvn test'
+// 			}
+// 		}
+// 		stage('Sonar') {
+// 			agent {
+// 				label "maven"
+// 			}
+// 			steps {
+// 				sh 'mvn initialize sonar:sonar -Dsonar.host.url=http://sonarqube-sonarqube.sonarqube.svc.cluster.local:9000'
+// 			}
+// 		}
+// 		stage('Image') {
+// 			agent {
+// 				label "maven"
+// 			}
+// 			steps {
+// 				withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUBUSER', passwordVariable: 'HUBPASS')]) {
+// 					sh 'mvn -P jib -Djib.to.auth.username=${HUBUSER} -Djib.to.auth.password=${HUBPASS} compile jib:build'
+// 				}
+// 			}
+// 		}
 		stage('Deploy on test') {
 			steps {
 			    withKubeConfig([credentialsId: 'k8s']) {
+			      sh 'sleep 60'
                   sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"'
                   sh 'chmod u+x ./kubectl'
                   sh './kubectl apply -f k8s.yaml'
