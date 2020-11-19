@@ -7,3 +7,4 @@ Currently you may find here some examples of different techniques of deploying t
 1. Using [Okteto Cloud Platform](https://okteto.com/) - Kubernetes for Developers. A detailed guide may be find in the following article: [Development on Kubernetes with Okteto and Spring Boot](https://piotrminkowski.com/2020/06/15/development-on-kubernetes-with-okteto-and-spring-boot/)
 
 Doing demo for wayne and ryan
+Doing demo for Uday and Sri
