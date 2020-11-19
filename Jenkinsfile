@@ -49,10 +49,15 @@ pipeline {
 		}
 		stage('Deploy on test') {
 			steps {
-				script {
-					env.PIPELINE_NAMESPACE = "test"
-					kubernetesDeploy kubeconfigId: 'k8s', configs: 'k8s/deployment-template.yaml'
-				}
+			    withKubeConfig([credentialsId: 'k8s']) {
+                  sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"'
+                  sh 'chmod u+x ./kubectl'
+                  sh './kubectl apply -f k8s.yaml'
+                 }
+				//script {
+				//	env.PIPELINE_NAMESPACE = "test"
+				//	kubernetesDeploy kubeconfigId: 'k8s', configs: 'k8s/deployment-template.yaml'
+				//}
 			}
 		}
 		stage('Deploy on prod') {
