@@ -50,7 +50,7 @@ pipeline {
 		stage('Deploy on test') {
 		    steps {
 		        withKubeConfig([credentialsId: 'k8s-username-password']) {
-                  sh '/home/jenkins/kubectl -n test set image deploy sample-spring-boot-on-kubernetes-deployment sample-spring-boot-on-kubernetes=visualizeitc2/sample-spring-boot-on-kubernetes '
+                  sh '/home/jenkins/kubectl -n test set image deploy sample-spring-boot-on-kubernetes-deployment sample-spring-boot-on-kubernetes=visualizeitc2/sample-spring-boot-on-kubernetes:latest '
                  }
             }
 // 			steps {
@@ -61,12 +61,18 @@ pipeline {
 // 			}
 		}
 		stage('Deploy on prod') {
-			steps {
-				script {
-					env.PIPELINE_NAMESPACE = "prod"
-					kubernetesDeploy kubeconfigId: 'k8s', configs: 'k8s/deployment-template.yaml'
-				}
-			}
+		    steps {
+		        withKubeConfig([credentialsId: 'k8s-username-password']) {
+                  sh '/home/jenkins/kubectl -n test set image deploy sample-spring-boot-on-kubernetes-deployment sample-spring-boot-on-kubernetes=visualizeitc2/sample-spring-boot-on-kubernetes:latest '
+                 }
+            }
+//
+// 			steps {
+// 				script {
+// 					env.PIPELINE_NAMESPACE = "prod"
+// 					kubernetesDeploy kubeconfigId: 'k8s', configs: 'k8s/deployment-template.yaml'
+// 				}
+// 			}
 		}
 	}
 }
