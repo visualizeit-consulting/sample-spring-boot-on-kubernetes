@@ -48,15 +48,17 @@ pipeline {
 			}
 		}
 		stage('Deploy on test') {
-		    agent {
-		        label "maven"
-		    }
-			steps {
-				script {
-					env.PIPELINE_NAMESPACE = "test"
-					kubernetesDeploy kubeconfigId: 'k8s', configs: 'k8s/deployment-template.yaml'
-				}
-			}
+		    steps {
+		        withKubeConfig([credentialsId: 'k8s-username-password']) {
+                  sh 'var/data/jenkins-agent/kubectl -n test set image deploy sample-spring-boot-on-kubernetes-deployment sample-spring-boot-on-kubernetes=visualizeitc2/sample-spring-boot-on-kubernetes '
+                 }
+            }
+// 			steps {
+// 				script {
+// 					env.PIPELINE_NAMESPACE = "test"
+// 					kubernetesDeploy kubeconfigId: 'k8s', configs: 'k8s/deployment-template.yaml'
+// 				}
+// 			}
 		}
 		stage('Deploy on prod') {
 			steps {
