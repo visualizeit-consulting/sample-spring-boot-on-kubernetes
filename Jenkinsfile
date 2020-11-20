@@ -50,7 +50,7 @@ pipeline {
 		stage('Deploy on test') {
 		    steps {
 		        withKubeConfig([credentialsId: 'k8s-username-password']) {
-                  sh 'var/data/jenkins-agent/kubectl -n test set image deploy sample-spring-boot-on-kubernetes-deployment sample-spring-boot-on-kubernetes=visualizeitc2/sample-spring-boot-on-kubernetes '
+                  sh '/var/data/jenkins-agent/kubectl -n test set image deploy sample-spring-boot-on-kubernetes-deployment sample-spring-boot-on-kubernetes=visualizeitc2/sample-spring-boot-on-kubernetes '
                  }
             }
 // 			steps {
