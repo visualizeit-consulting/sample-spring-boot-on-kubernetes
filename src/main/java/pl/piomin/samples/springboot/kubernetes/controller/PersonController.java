@@ -41,7 +41,7 @@ public class PersonController {
 
 	@PostMapping("/random")
 	public Set<Person> add() {
-		log.info("Adding a Random Person");
+		log.info("Adding a New Random Person");
 		Person p1 = new Person();
 		p1.setAge(1);
 		p1.setFirstName("X");
