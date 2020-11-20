@@ -21,22 +21,22 @@ pipeline {
 				sh 'mvn clean compile -X'
 			}
 		}
-		stage('Test') {
-			agent {
-				label "maven"
-			}
-			steps {
-				sh 'mvn test'
-			}
-		}
-		stage('Sonar') {
-			agent {
-				label "maven"
-			}
-			steps {
-				sh 'mvn initialize sonar:sonar -Dsonar.host.url=http://sonarqube-sonarqube.sonarqube.svc.cluster.local:9000'
-			}
-		}
+// 		stage('Test') {
+// 			agent {
+// 				label "maven"
+// 			}
+// 			steps {
+// 				sh 'mvn test'
+// 			}
+// 		}
+// 		stage('Sonar') {
+// 			agent {
+// 				label "maven"
+// 			}
+// 			steps {
+// 				sh 'mvn initialize sonar:sonar -Dsonar.host.url=http://sonarqube-sonarqube.sonarqube.svc.cluster.local:9000'
+// 			}
+// 		}
 		stage('Image') {
 			agent {
 				label "maven"
@@ -50,7 +50,7 @@ pipeline {
 		stage('Deploy on test') {
 		    steps {
 		        withKubeConfig([credentialsId: 'k8s-username-password']) {
-                  sh '/var/data/jenkins-agent/kubectl -n test set image deploy sample-spring-boot-on-kubernetes-deployment sample-spring-boot-on-kubernetes=visualizeitc2/sample-spring-boot-on-kubernetes '
+                  sh '/home/jenkins/kubectl -n test set image deploy sample-spring-boot-on-kubernetes-deployment sample-spring-boot-on-kubernetes=visualizeitc2/sample-spring-boot-on-kubernetes '
                  }
             }
 // 			steps {
