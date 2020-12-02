@@ -24,6 +24,7 @@ pipeline {
 		}
 		stage('Test') {
 			agent {
+				label "maven"
 			}
 			steps {
 				sh 'mvn test'
