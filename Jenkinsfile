@@ -16,20 +16,19 @@ pipeline {
 				label "maven"
 			}
 			steps {
-                                sh 'sleep 120'
+        sh 'sleep 120'
 				sh 'ls -la'
 				sh 'mvn -version'
 				sh 'mvn clean compile -X'
 			}
 		}
-// 		stage('Test') {
-// 			agent {
-// 				label "maven"
-// 			}
-// 			steps {
-// 				sh 'mvn test'
-// 			}
-// 		}
+		stage('Test') {
+			agent {
+			}
+			steps {
+				sh 'mvn test'
+			}
+		}
 // 		stage('Sonar') {
 // 			agent {
 // 				label "maven"
