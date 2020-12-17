@@ -14,7 +14,6 @@ pipeline {
 		}
 		stage('Build') {
 			steps {
-        sh 'sleep 120'
 				sh 'ls -la'
 				sh 'mvn -version'
 				sh 'mvn clean compile -X'
