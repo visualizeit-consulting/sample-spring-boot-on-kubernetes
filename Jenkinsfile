@@ -1,6 +1,7 @@
+
 pipeline {
 	agent {
-		label "default"
+		label "maven"
 	}
 	stages {
 		stage('Checkout') {
@@ -12,9 +13,6 @@ pipeline {
 			}
 		}
 		stage('Build') {
-			agent {
-				label "maven"
-			}
 			steps {
         sh 'sleep 120'
 				sh 'ls -la'
@@ -23,9 +21,6 @@ pipeline {
 			}
 		}
 		stage('Test') {
-			agent {
-				label "maven"
-			}
 			steps {
 				sh 'mvn test'
 			}
@@ -39,9 +34,6 @@ pipeline {
 // 			}
 // 		}
 		stage('Image') {
-			agent {
-				label "maven"
-			}
 			steps {
 				withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUBUSER', passwordVariable: 'HUBPASS')]) {
 					sh 'mvn -P jib -Djib.to.auth.username=${HUBUSER} -Djib.to.auth.password=${HUBPASS} compile jib:build'
